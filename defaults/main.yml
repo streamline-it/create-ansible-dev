@@ -17,3 +17,20 @@ create_ansible_dev_directories:
 # environment variable(s) to create
 create_ansible_dev_env_vars_line:
   - "export ANSIBLE_FORCE_COLOR=True"
+
+# other pub/private keys to add
+create_ansible_dev_env_misc_keys:
+  - username:
+    user_home_dir:
+    priv_key_filename:
+    pub_key_filename:
+    key_dest_dir:
+    key_src_dir:
+    mode: 
+
+create_ansible_dev_env_ssh_user_config:
+  - username: 
+    path: 
+    host_domain:
+    host_name:
+    identity_file:

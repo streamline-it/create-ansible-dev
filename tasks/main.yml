@@ -44,4 +44,12 @@
   ansible.builtin.include_tasks: manage-key-files.yml
 
 - name: include tasks to install additional ansible related or dev packages
-  ansible.builtin.include_tasks: "{{ }}-install-pkgs.yml"
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}-install-pkgs.yml"
+
+- name: include_tasks to install pub/priv additional keys
+  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  ansible.builtin.include_tasks: install-additional-keys
+  
+- name: include tasks to modify ssh_config to work with misc keys
+  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  ansible.builtin.include_tasks: mod-ssh-for-misc-keys.yml

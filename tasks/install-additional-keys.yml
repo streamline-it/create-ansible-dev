@@ -1,0 +1,22 @@
+---
+- name: ensure the misc private keys are copied
+  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  loop:
+    "{{ create_ansible_dev_env_misc_keys }}"
+  ansible.builtin.copy:
+    src: "{{ item['key_src_dir'] }}/item['priv_key_filename'] }}"
+    dest: "{{ item['user_home_dir'] }}/.ssh/{{ item['priv_key_filename'] }}"
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
+    mode: "{{ item['mode'] }}"
+
+- name: ensure the misc public keys are copied
+  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  loop:
+    "{{ create_ansible_dev_env_misc_keys }}"
+  ansible.builtin.copy:
+    src: "{{ item['key_src_dir'] }}/item['pub_key_filename'] }}"
+    dest: "{{ item['user_home_dir'] }}/.ssh/{{ item['pub_key_filename'] }}"
+    owner: "{{ item['username'] }}"
+    group: "{{ item['username'] }}"
+    mode: "{{ item['mode'] }}"

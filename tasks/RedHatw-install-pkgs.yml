@@ -1,0 +1,19 @@
+---
+- name: install custom dev related packages (RHEL via dnf)
+  when:
+    - ansible_distribution_major_version == "7" or ansible_distribution_major_version == "8" or ansible_distribution_major_version == "9"
+  loop:
+    "{{ create_ansible_dev_additional_pkgs }}"
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    update_cache: true
+    state: latest
+
+- name: install custom dev related packages (RHEL via yum)
+  when: ansible_distribution_major_version == "6" 
+  loop:
+    "{{ create_ansible_dev_additional_pkgs }}"
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    update_cache: true
+    state: latest

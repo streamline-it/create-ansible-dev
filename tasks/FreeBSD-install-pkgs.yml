@@ -1,0 +1,7 @@
+---
+- name: install additional dev related packages (FreeBSD)
+  loop:
+    "{{ create_ansible_dev_additional_pkgs }}"
+  ansible.community.general.pkgng:
+    name: "{{ item  }}"
+    state: present

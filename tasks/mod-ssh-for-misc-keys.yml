@@ -1,0 +1,30 @@
+---
+- name: ensure the the ssh config file exists for the user
+  when: create_ansible_dev_env_ssh_user_config[0]['username'] | length > 0
+  register: create_ansible_dev_env_sshconfig_stat
+  ansible.builtin.stat:
+    path: "{{ create_asible_dev_env_ssh_user_config[0]['path'] }}"
+    get_attributes: true
+
+- name: ensure the config file exists
+  when:
+    - create_ansible_dev_env_ssh_user_config[0]['username'] | length > 0
+    - create_ansible_dev_env_sshconfig_stat[0]['exists'] == true
+  ansible.builtin.file:
+    path: "{{ create_ansible_dev_env_ssh_user_config[0]['path'] }}"
+    owner: "{{ create_ansible_dev_env_ssh_user_config[0]['username'] }}"
+    group: "{{ create_ansible_dev_env_ssh_user_config[0]['username'] }}"
+    state: file
+
+- name: ensure the contents are created for the user's ssh config file
+  when: create_ansible_dev_env_ssh_user_config[0]['username'] | length > 0
+  loop:
+    "{{ create_ansible_dev_env_ssh_user_config }}"
+  ansible.builtin.blockinfile:
+    path: "{{ item['path'] }}"
+    marker: "-----Ansible Managed-----"
+    block: |
+      "host {{ host_domain_line }}
+          hostname {{ host_name_line }}
+          IdentityFile {{ identity_file_line }}"
+    state: present
