@@ -29,6 +29,25 @@ create_ansible_dev_directories:
 create_ansible_dev_env_vars_line:
   - "export ANSIBLE_FORCE_COLOR=True"
 
+# other pub/private keys to add
+create_ansible_dev_env_misc_keys:
+  - username:
+    user_home_dir:
+    priv_key_filename:
+    pub_key_filename:
+    key_dest_dir:
+    key_src_dir:
+    mode: 
+
+# hold /home/<user>/.ssh/config values to allow user
+# of keys such as github keys
+create_ansible_dev_env_ssh_user_config:
+  - username: 
+    path: 
+    host_domain:
+    host_name:
+    identity_file:
+
 
 Vars section
 
@@ -79,4 +98,5 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
 
