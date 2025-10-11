@@ -1,6 +1,6 @@
 galaxy_info:
   author: Rich O'Hara
-  description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.  Also includes a role depenency to create ansible-based python envirnoments.
+  description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.  .
   company: streamline-it
 
   # If the issue tracker for your role is not on github, uncomment the
