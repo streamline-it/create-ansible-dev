@@ -1,5 +1,5 @@
-gkalaxy_info:
-  author: rich ohara
+galaxy_info:
+  author: Rich O'Hara
   description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.
   #  description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.  Also includes a role depenency to create ansible-based python envirnoments.
   company: streamline-it
