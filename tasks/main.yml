@@ -1,0 +1,21 @@
+---
+# tasks file for create-ansible-dev
+- name: ensure the .vimrc file exists for every user
+  with_nested:
+    - "{{ create_ansible_users }}"
+    - "{{ create_ansible_dev_file_locations }}"
+  when: item[0]['shell'] == item[1]['shell']
+  ansible.builtin.copy:
+    src: "{{ item[1]['vim_src'] }}"
+    dest: "{{ item[0]['homedir'] }}/{{ item[1]['vim_dest'] }}"
+    owner: "{{ item[0]['name]] }}"
+    group: "{{ item[0]['name'] }}"
+    mode: "0600"
+
+- name: ensure the ANSIBLE_FORCE_COLOR=1 environment variable exists for the user
+  loop:
+    "{{ create_ansible_dev_env_vars_line }}"
+  ansible.builtin.lineinfile:
+    path: "{{ item[0]['homedir'] }}/{{ item[1]['env_file'] }}"
+    line: "{{ item }}"
+    state: present

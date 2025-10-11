@@ -1,2 +1,38 @@
-# create-ansible-dev
-Creates Ansible Dev environment by setting up vim and environment variable(s).  Also includes a role to establish ansible python environments
+Role Name
+=========
+
+This will create an ansible dev environment.  It create a .vimrc file for specific for Ansible.  It will also establish environment variable(s) for Ansible.  It includes a role dependency to create ansible-based python environments too.
+
+Requirements
+------------
+
+Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+
+Role Variables
+--------------
+
+
+Dependencies
+------------
+
+create-pythonenv-ansible
+
+
+Example Playbook
+----------------
+
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
+
+License
+-------
+
+BSD
+
+Author Information
+------------------
+
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).
