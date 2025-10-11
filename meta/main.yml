@@ -1,8 +1,7 @@
-galaxy_info:
+gkalaxy_info:
   author: rich ohara
-
   description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.
-#  description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.  Also includes a role depenency to create ansible-based python envirnoments.
+  #  description: Create ansible dev environment.  Creates vimrc for Ansible editing, creates ansible specific environment variables.  Also includes a role depenency to create ansible-based python envirnoments.
   company: streamline-it
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -53,4 +52,4 @@ galaxy_info:
 dependencies: []
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list.
-#  - role: streamlineit/create-pythonenv-ansible
+  #  - role: streamlineit/create-pythonenv-ansible
