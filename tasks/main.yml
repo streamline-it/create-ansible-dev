@@ -25,3 +25,14 @@
     line: "{{ item[2] }}"
     backup: true
     state: present
+
+- name: ensure developement directories exist
+  with_nested:
+    - "{{ create_ansible_dev_users }}"
+    - "{{ create_ansible_dev_directories }}"
+  ansible.builtin.file:
+    path: "{{ item[0]['homedir'] }}/{{ item[1] }}"
+    owner: "{{ item[0]['name'] }}"
+    group: "{{ item[0]['name'] }}"
+    mode: 0770
+    state: directory

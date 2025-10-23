@@ -5,6 +5,10 @@ create_ansible_dev_users:
   - name:
     shell:
     homedir:
+    wallpaper: 
+
+create_ansible_dev_directories:
+  - Documents/ansible_dev/playbooks
 
 create_ansible_dev_env_vars_line:
   - "export ANSIBLE_FORCE_COLOR=True"
