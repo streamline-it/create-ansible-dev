@@ -1,0 +1,12 @@
+---
+- name: ensure key variables exist
+  ansible.builtin.assert:
+    that:
+      - create_ansible_dev_users is defined
+      - create_ansible_dev_directories is defined
+      - create_ansible_dev_env_vars_line is defined
+    fail_msg: >
+      "Make sure the following variables exist
+      create_ansible_dev_users,
+      create_ansible_dev_directories,
+      create_ansible_dev_env_vars_line

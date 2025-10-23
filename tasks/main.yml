@@ -1,5 +1,8 @@
 ---
 # tasks file for create-ansible-dev
+- name: call assertions tasks
+  ansible.builtin.include_tasks: assertions.yml
+
 - name: ensure the .vimrc file exists for every user
   with_nested:
     - "{{ create_ansible_dev_users }}"
