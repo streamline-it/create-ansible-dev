@@ -36,3 +36,6 @@
     group: "{{ item[0]['name'] }}"
     mode: 0770
     state: directory
+
+- name: include tasks to deal with dev user's key files
+  ansible.builtin.include_tasks: manage-key-files.yml

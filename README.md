@@ -1,22 +1,38 @@
 Role Name
 =========
 
-This will create an ansible dev environment.  It create a .vimrc file for specific for Ansible.  It will also establish environment variable(s) for Ansible.  It includes a role dependency to create ansible-based python environments too.
+This role creates an Ansible developement environment. It creates environment variable(s) for Ansible.  It also creates developement directory under user's Documents directory.  Lastly it create's a vimrc file catered to Ansible editing under VIM.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
+# defaults file for create-ansible-dev
+
+create_ansible_dev_users:
+  - name:
+    shell:
+    homedir:
+    wallpaper: 
+    devuser_src_key_path:
+    devuser_priv_key_file:
+    devuser_pub_key_file:
+
+# directories to create for ansible developement
+create_ansible_dev_directories:
+  - Documents/ansible_dev/playbooks
+
+# environment variable(s) to create
+create_ansible_dev_env_vars_line:
+  - "export ANSIBLE_FORCE_COLOR=True"
 
 Dependencies
 ------------
 
-create-pythonenv-ansible
-
+None
 
 Example Playbook
 ----------------
@@ -25,7 +41,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - create-ansible-dev
 
 License
 -------
@@ -36,3 +52,4 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+

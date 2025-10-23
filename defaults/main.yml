@@ -6,9 +6,14 @@ create_ansible_dev_users:
     shell:
     homedir:
     wallpaper: 
+    devuser_src_key_path:
+    devuser_priv_key_file:
+    devuser_pub_key_file:
 
+# directories to create for ansible developement
 create_ansible_dev_directories:
   - Documents/ansible_dev/playbooks
 
+# environment variable(s) to create
 create_ansible_dev_env_vars_line:
   - "export ANSIBLE_FORCE_COLOR=True"
