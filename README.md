@@ -29,6 +29,33 @@ create_ansible_dev_directories:
 create_ansible_dev_env_vars_line:
   - "export ANSIBLE_FORCE_COLOR=True"
 
+
+Vars section
+
+# used to create user aliases etc
+create_ansible_dev_filepaths:
+  - shell: bash
+    vim_src: vimrc_bash
+    vim_dest: ".vimrc"
+    env_file: ".bashrc"
+  - shell: bourne
+    vim_src: vimrc_bourne
+    vim_dest: "vimrc"
+    env_file: ".profile"
+
+
+
+FreeBSD.yml
+
+create_ansible_dev_additional_pkgs:
+  - git
+
+RedHat.yml
+
+create_ansible_dev_additional_pkgs:
+  - git
+  - git-core
+  - git-core-doc
 Dependencies
 ------------
 

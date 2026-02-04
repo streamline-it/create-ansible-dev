@@ -1,0 +1,5 @@
+---
+create_ansible_dev_additional_pkgs:
+  - git
+  - git-core
+  - git-core-doc
