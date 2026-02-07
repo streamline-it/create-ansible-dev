@@ -1,1 +1,2 @@
-autocmd FileType yaml setlocal ai ts=2 sw=2 et sts=2 cuc nu
+autocmd FileType yaml setlocal ai ts=2 st=2 sts=2 sw=2 et ex nu cuc
+autocmd FileType python setlocal ai ts=2 st=2 sts=2 sw=2 et ex nu cuc

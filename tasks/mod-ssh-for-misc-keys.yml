@@ -24,7 +24,7 @@
     path: "{{ item['path'] }}"
     marker: "-----Ansible Managed-----"
     block: |
-      "host {{ host_domain_line }}
+      host {{ host_domain_line }}
           hostname {{ host_name_line }}
-          IdentityFile {{ identity_file_line }}"
+          IdentityFile {{ identity_file_line }}
     state: present
