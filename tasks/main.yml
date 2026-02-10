@@ -3,6 +3,9 @@
 - name: call assertions tasks
   ansible.builtin.include_tasks: assertions.yml
 
+- name: bring in os specific variables
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
 - name: ensure the .vimrc file exists for every user
   with_nested:
     - "{{ create_ansible_dev_users }}"
@@ -47,9 +50,9 @@
   ansible.builtin.include_tasks: "{{ ansible_os_family }}-install-pkgs.yml"
 
 - name: include_tasks to install pub/priv additional keys
-  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
-  ansible.builtin.include_tasks: install-additional-keys
+  when: create_ansible_dev_env_misc_keys[0]['username'] is defined
+  ansible.builtin.include_tasks: install-additional-keys.yml
   
 - name: include tasks to modify ssh_config to work with misc keys
-  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  when: create_ansible_dev_env_misc_keys[0]['username'] is defined 
   ansible.builtin.include_tasks: mod-ssh-for-misc-keys.yml

@@ -1,6 +1,6 @@
 ---
 - name: ensure the misc private keys are copied
-  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  when: create_ansible_dev_env_misc_keys[0]['name'] is defined 
   loop:
     "{{ create_ansible_dev_env_misc_keys }}"
   ansible.builtin.copy:
@@ -11,7 +11,7 @@
     mode: "{{ item['mode'] }}"
 
 - name: ensure the misc public keys are copied
-  when: create_ansible_dev_env_misc_keys[0]['name'] | length > 0
+  when: create_ansible_dev_env_misc_keys[0]['name'] is defined 
   loop:
     "{{ create_ansible_dev_env_misc_keys }}"
   ansible.builtin.copy:
