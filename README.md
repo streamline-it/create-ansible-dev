@@ -43,7 +43,7 @@ create_ansible_dev_env_misc_keys:
 # of keys such as github keys
 create_ansible_dev_env_ssh_user_config:
   - username: 
-    path: 
+    config_filepath: 
     host_domain:
     host_name:
     identity_file:

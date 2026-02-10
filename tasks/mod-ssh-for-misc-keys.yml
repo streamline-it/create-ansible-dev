@@ -22,9 +22,9 @@
   when: 
     - create_ansible_dev_env_ssh_user_config[create_ansible_dev_env_loop_index]['username'] is truthy 
   ansible.builtin.blockinfile:
-    path: "{{ item['path'] }}"
+    path: "{{ item['config_filepath'] }}"
     block: |
-      host {{ host_domain }}
-          hostname {{ host_name }}
-          IdentityFile {{ identity_file }}
+      host {{ item['host_domain'] }}
+          hostname {{ item['host_name'] }}
+          IdentityFile {{ item['identity_file'] }}
     state: present
