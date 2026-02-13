@@ -34,3 +34,12 @@ create_ansible_dev_env_ssh_user_config:
     host_domain:
     host_name:
     identity_file:
+
+create_ansible_dev_env_clone_repos: false
+
+create_ansible_dev_env_git_repos:
+  - git_repo_name:
+    git_repo:
+    dest_dir:
+    owner: 
+    group:

@@ -1,0 +1,28 @@
+---
+- name: create base directory for git repos
+  loop:
+    "{{ create_ansible_dev_env_git_repos }}"
+  ansible.builtin.file:
+    path: "{{ item['dest_dir'] }}"
+    owner: "{{ item['owner'] }}"
+    group: "{{ item['group'] }}"
+    state: directory
+
+- name: check to see if repos exist and store result
+  register: create_ansible_dev_env_repo_check
+  loop:
+    "{{ create_ansible_dev_env_git_repos }}"
+  ansible.builtin.stat:
+    path: "{{ item['dest_dir }}/item['git_repo_name'] }}"
+    get_attributes: true
+
+- name: ensure git repo(s) are cloned if they don't exist
+  loop: "{{ create_ansible_dev_env_git_repos }} | zip({{ create_ansible_dev_env_repo_check}} | list)"
+  loop_control:
+    index_var: create_ansible_dev_env_index
+  when:
+    - create_ansible_dev_env_repo_check[1][create_ansible_dev_env_index]['exists'] == false
+  ansible.builtin.git:
+    repo: "{{ item[0]['git_repo'] }}"
+    dest: "{{ item[0]['dest_dir'] }}"
+    clone: true
