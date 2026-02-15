@@ -58,5 +58,5 @@
   ansible.builtin.include_tasks: mod-ssh-for-misc-keys.yml
 
 - name: include tasks to clone git repos
-  when: create_ansible_dev_env_clone_repos: true
+  when: create_ansible_dev_env_clone_repos == true
   ansible.builtin.include_tasks: clone-repos.yml

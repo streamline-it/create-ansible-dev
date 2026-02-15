@@ -43,3 +43,4 @@ create_ansible_dev_env_git_repos:
     dest_dir:
     owner: 
     group:
+    host_key:
