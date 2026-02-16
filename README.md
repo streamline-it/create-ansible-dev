@@ -48,6 +48,17 @@ create_ansible_dev_env_ssh_user_config:
     host_name:
     identity_file:
 
+# if true cloning git repos is enabled
+create_ansible_dev_env_clone_repos: false
+ 
+# git repo info to clone
+create_ansible_dev_env_git_repos:
+  - git_repo_name:
+    git_repo:
+    dest_dir:
+    owner:
+    group:
+    host_key:
 
 Vars section
 
@@ -59,7 +70,7 @@ create_ansible_dev_filepaths:
     env_file: ".bashrc"
   - shell: bourne
     vim_src: vimrc_bourne
-    vim_dest: "vimrc"
+    vim_dest: ".vimrc"
     env_file: ".profile"
 
 
