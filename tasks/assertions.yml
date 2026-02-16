@@ -5,8 +5,36 @@
       - create_ansible_dev_users is defined
       - create_ansible_dev_directories is defined
       - create_ansible_dev_env_vars_line is defined
+      - create_ansible_dev_env_misc_keys is defined
+      - create_ansible_dev_env_ssh_user_config is defined
+      - create_ansible_dev_env_clone_repos is defined
+      - create_ansible_dev_env_git_repos is defined
     fail_msg: >
       "Make sure the following variables exist
       create_ansible_dev_users,
       create_ansible_dev_directories,
-      create_ansible_dev_env_vars_line
+      create_ansible_dev_env_vars_line,
+      create_ansible_dev_env_vars_misc_keys,
+      create_ansible_dev_env_vars_ssh_user_config
+      create_ansible_dev_env_vars_clone_repos,
+      create_ansible_dev_env_vars_git_repos"
+
+- name: ensure git repos variable has values if cloning is set
+  when: create_ansible_dev_clone_repos == true
+  ansible.builtin.assert:
+    that: 
+      - create-ansible_dev_env_git_repos[0]['git_repo_name'] is truthy
+      - create-ansible_dev_env_git_repos[0]['git_repo'] is truthy
+      - create-ansible_dev_env_git_repos[0]['dest_dir'] is truthy
+      - create-ansible_dev_env_git_repos[0]['owner'] is truthy
+      - create-ansible_dev_env_git_repos[0]['group'] is truthy
+    fail_msg: >
+      "You've chosen to clone repos, make sure the following
+      variables are defined:
+      create-ansible_dev_env_git_repos['git_repo_name'] 
+      create-ansible_dev_env_git_repos['git_repo'] 
+      create-ansible_dev_env_git_repos['dest_dir'] 
+      create-ansible_dev_env_git_repos['owner'] 
+      create-ansible_dev_env_git_repos['group']"
+
+

@@ -52,6 +52,15 @@ create_ansible_dev_env_ssh_user_config:
 create_ansible_dev_env_clone_repos: false
  
 # git repo info to clone
+# Example
+# create_ansible_dev_env_git_repos:
+#    - git_repo_name: apache
+#      git_repo: git@github.com:streamline-it/apache.git
+#      dest_dir: /home/username/git-repos
+#      owner: username
+#      group: username
+#      host_key: rsa-github-priv
+
 create_ansible_dev_env_git_repos:
   - git_repo_name:
     git_repo:

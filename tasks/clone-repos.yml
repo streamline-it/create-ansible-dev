@@ -17,7 +17,6 @@
     get_attributes: true
 
 - name: ensure git repo(s) are cloned if they don't exist
-  debugger: on_failed
   loop: "{{ create_ansible_dev_env_git_repos | ansible.builtin.zip( create_ansible_dev_env_repo_check['results']) | list }}"
   loop_control:
     index_var: create_ansible_dev_env_index
