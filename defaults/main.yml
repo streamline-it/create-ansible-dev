@@ -5,10 +5,6 @@ create_ansible_dev_users:
   - name:
     shell:
     homedir:
-    wallpaper: 
-    devuser_src_key_path:
-    devuser_priv_key_file:
-    devuser_pub_key_file:
 
 # directories to create for ansible developement
 create_ansible_dev_directories:
