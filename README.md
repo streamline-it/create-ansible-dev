@@ -105,6 +105,13 @@ Including an example of how to use your role (for instance, with variables passe
     * Very simple definition
 
     - hosts: servers
+      
+      vars:
+
+	create_ansible_dev_users:
+	  - name: rich
+	    shell: /bin/sh
+	    homedir: /home/rich
 
       roles:
          - create-ansible-dev
@@ -137,8 +144,6 @@ Including an example of how to use your role (for instance, with variables passe
             host_domain: github.com
             host_name: github.com
             identity_file: ~/.ssh/github-priv-key
-
-        create_ansible_dev_env_clone_repos: true
 
         create_ansible_dev_env_clone_repos: true
 

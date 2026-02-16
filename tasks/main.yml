@@ -43,9 +43,6 @@
     mode: 0770
     state: directory
 
-- name: include tasks to deal with dev user's key files
-  ansible.builtin.include_tasks: manage-key-files.yml
-
 - name: include tasks to install additional ansible related or dev packages
   ansible.builtin.include_tasks: "{{ ansible_os_family }}-install-pkgs.yml"
 
