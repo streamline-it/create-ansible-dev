@@ -10,7 +10,6 @@
   with_nested:
     - "{{ create_ansible_dev_users }}"
     - "{{ create_ansible_dev_filepaths }}"
-  when: item[0]['shell'] == item[1]['shell']
   ansible.builtin.copy:
     src: "{{ item[1]['vim_src'] }}"
     dest: "{{ item[0]['homedir'] }}/{{ item[1]['vim_dest'] }}"
