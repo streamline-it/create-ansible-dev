@@ -5,6 +5,10 @@ create_ansible_dev_users:
   - name:
     shell:
     homedir:
+    wallpaper: 
+    devuser_src_key_path:
+    devuser_priv_key_file:
+    devuser_pub_key_file:
 
 # directories to create for ansible developement
 create_ansible_dev_directories:
@@ -13,6 +17,9 @@ create_ansible_dev_directories:
 # environment variable(s) to create
 create_ansible_dev_env_vars_line:
   - "export ANSIBLE_FORCE_COLOR=True"
+
+# if true the role will setup misc pub/priv keys
+create_ansible_dev_env_use_misc_keys: false
 
 # other pub/private keys to add
 create_ansible_dev_env_misc_keys:
@@ -24,6 +31,9 @@ create_ansible_dev_env_misc_keys:
     key_src_dir:
     mode: 
 
+# controls assertions specificc to ssh config file for the user
+create_ansible_dev_env_create_ssh_config: false
+
 create_ansible_dev_env_ssh_user_config:
   - username: 
     config_filepath: 
@@ -31,12 +41,15 @@ create_ansible_dev_env_ssh_user_config:
     host_name:
     identity_file:
 
+# if enabled asserts will check that 
+# variables specific to git cloning are
+# setup
 create_ansible_dev_env_clone_repos: false
 
+# Git repo setup variable
 create_ansible_dev_env_git_repos:
   - git_repo_name:
     git_repo:
     dest_dir:
     owner: 
     group:
-    host_key:

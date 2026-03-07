@@ -1,40 +1,36 @@
 ---
-- name: ensure key variables exist
+- name: ensure key variables exist for default setup
   ansible.builtin.assert:
     that:
       - create_ansible_dev_users is defined
+      - create_ansible_dev_users is truthy
       - create_ansible_dev_directories is defined
+      - create_ansible_dev_directories is truthy
       - create_ansible_dev_env_vars_line is defined
-      - create_ansible_dev_env_misc_keys is defined
-      - create_ansible_dev_env_ssh_user_config is defined
-      - create_ansible_dev_env_clone_repos is defined
-      - create_ansible_dev_env_git_repos is defined
+      - create_ansible_dev_env_vars_line is truthy
     fail_msg: >
-      "Make sure the following variables exist
-      create_ansible_dev_users,
-      create_ansible_dev_directories,
-      create_ansible_dev_env_vars_line,
-      create_ansible_dev_env_vars_misc_keys,
-      create_ansible_dev_env_vars_ssh_user_config
-      create_ansible_dev_env_vars_clone_repos,
-      create_ansible_dev_env_vars_git_repos"
+      "Make sure the following variables exist and are defined"
 
-- name: ensure git repos variable has values if cloning is set
+- name: ensure repo variable is setup if setup repo variable is enabled
   when: create_ansible_dev_env_clone_repos == true
   ansible.builtin.assert:
-    that: 
-      - create_ansible_dev_env_git_repos[0]['git_repo_name'] is truthy
-      - create_ansible_dev_env_git_repos[0]['git_repo'] is truthy
-      - create_ansible_dev_env_git_repos[0]['dest_dir'] is truthy
-      - create_ansible_dev_env_git_repos[0]['owner'] is truthy
-      - create_ansible_dev_env_git_repos[0]['group'] is truthy
-    fail_msg: >
-      "You've chosen to clone repos, make sure the following
-      variables are defined:
-      create_ansible_dev_env_git_repos['git_repo_name'] 
-      create_ansible_dev_env_git_repos['git_repo'] 
-      create_ansible_dev_env_git_repos['dest_dir'] 
-      create_ansible_dev_env_git_repos['owner'] 
-      create_ansible_dev_env_git_repos['group']"
+    what:
+      - create_ansible_dev_env_git_repos is defined
+      - create_ansible_dev_env_git_repos is truthy
+    fail_msg: "Make sure git repo variables are set"
 
+- name: ensure variables are defined for misc public/private keys
+  when: create_ansible_dev_env_use_misc_keys == true
+  ansible.builtin.assert:
+    that:
+      - create_ansible_dev_env_misc_keys is defined
+      - create_ansible_dev_env_misc_keys is truthy
+    fail_msg: "These variable(s) must be setup"
 
+- name: ensure ssh config file exists if enabled
+  when: create_ansible_dev_env_create_ssh_config == true
+  ansible.builtin.assert:
+    that:
+      - create_ansible_dev_env_ssh_user_config is defined
+      - create_ansible_dev_env_ssh_user_config is truthy
+    fail_msg: "Ensure variable(s) for ssh user config are setup"
