@@ -14,7 +14,7 @@
 - name: ensure repo variable is setup if setup repo variable is enabled
   when: create_ansible_dev_env_clone_repos == true
   ansible.builtin.assert:
-    what:
+    that:
       - create_ansible_dev_env_git_repos is defined
       - create_ansible_dev_env_git_repos is truthy
     fail_msg: "Make sure git repo variables are set"
@@ -34,3 +34,18 @@
       - create_ansible_dev_env_ssh_user_config is defined
       - create_ansible_dev_env_ssh_user_config is truthy
     fail_msg: "Ensure variable(s) for ssh user config are setup"
+
+- name: check to see if user's exist
+  register: "{{ create_ansible_dev_env_user_check }}"
+  loop:
+    "{{ create_ansible_dev_users }}"
+  ansible.builtin.stat:
+    path: "{{ item['homedir' }}"
+    get_attributes: true
+
+- name: ensure the home directory(s) exist
+  loop:
+    "{{ create_ansible_dev_env_user_check['results'] }}"
+  ansible.builtin.assert:
+    that: item['stat']['exists']
+    fail_msg: "All user profiles must exist."
