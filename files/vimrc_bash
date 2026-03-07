@@ -1,2 +1,3 @@
-autocmd FileType yaml setlocal ts=2 st=2 sts=2 sw=2 ex ai et cuc nu
-autocmd FileType python setlocal ts=4 st=4 sts=4 sw=4 ex ai et cuc nu
+autocmd FileType yaml setlocal ts=2 st=2 sts=2 sw=2 ai et cuc nu
+autocmd FileType python setlocal ts=4 st=4 sts=4 sw=4 ai et cuc nu
+autocmd FileType sh setlocal ai et cuc nu
