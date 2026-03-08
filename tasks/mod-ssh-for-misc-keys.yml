@@ -1,5 +1,6 @@
 ---
 - name: ensure the config file exists 
+  changed_when: false
   when:
     - create_ansible_dev_env_ssh_user_config is defined
     - create_ansible_dev_env_ssh_user_config[0]['username'] is truthy 

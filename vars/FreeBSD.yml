@@ -1,3 +1,4 @@
 ---
 create_ansible_dev_additional_pkgs:
   - git
+  - vim

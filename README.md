@@ -3,9 +3,11 @@ Role Name
 
 This role creates an Ansible developement environment. It creates environment variable(s) for Ansible.  It also creates developement directory under user's Documents directory.  Lastly it create's a vimrc file catered to Ansible editing under VIM.
 
+This role with work on RHEL 7 OS's and up along with FreeBSD hosts versions 13 and up.
 Requirements
 ------------
 
+None
 
 Role Variables
 --------------
@@ -75,6 +77,7 @@ create_ansible_dev_additional_pkgs:
   - git
   - git-core
   - git-core-doc
+
 Dependencies
 ------------
 
@@ -83,11 +86,56 @@ None
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Example below includes all options.  You can control those options through the following variables.
 
-    - hosts: servers
-      roles:
-         - create-ansible-dev
+
+    create_ansible_dev_env_use_misc_keys - IF true specified keys will be copied
+
+    create_ansible_dev_env_ssh_user_config: If true, an ssh user config will be created
+
+    create_ansible_dev_env_clone_repos: If true git repos will be cloned.
+
+- hosts: servers
+
+  vars:
+
+    create_ansible_dev_users:
+      - name: rich
+        shell: /bin/sh
+        homedir: /home/rich
+
+    create_ansible_dev_env_use_misc_keys: true
+
+    create_ansible_dev_env_misc_keys:
+      - username: rich
+        user_home_dir: /home/rich
+        priv_key_filename: <private key, usually the Git repo key if you want repos to be cloned>
+        pub_key_filename: <public key, usually the Git repo key if you want repos to be cloned>
+        key_dest_dir: /home/rich/.ssh
+        key_src_dir: /home/rich/.ssh
+        mode: "0600"
+
+    create_ansible_dev_env_ssh_user_config: true
+
+    create_ansible_dev_env_ssh_user_config:
+      - username: rich
+        config_filepath: /home/rich/.ssh/config
+        host_domain: github.com
+        host_name: github.com
+        identity_file: ~/.ssh/rsa-streamline-it
+
+    create_ansible_dev_env_clone_repos: true
+
+    create_ansible_dev_env_git_repos:
+      - git_repo_name: apache
+        git_repo: <git repo>
+        dest_dir: /home/rich/ansible/roles/streamline-it
+        owner: rich
+        group: rich
+        host_key: <git repository key>
+
+  roles:
+    - create-ansible-dev
 
 License
 -------
@@ -97,6 +145,5 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
-
+Rich O'Hara
 

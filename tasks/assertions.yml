@@ -36,11 +36,13 @@
     fail_msg: "Ensure variable(s) for ssh user config are setup"
 
 - name: check to see if user's exist
-  register: "{{ create_ansible_dev_env_user_check }}"
+  register: create_ansible_dev_env_user_check 
+  changed_when: false
+  failed_when: false
   loop:
     "{{ create_ansible_dev_users }}"
   ansible.builtin.stat:
-    path: "{{ item['homedir' }}"
+    path: "{{ item['homedir'] }}"
     get_attributes: true
 
 - name: ensure the home directory(s) exist

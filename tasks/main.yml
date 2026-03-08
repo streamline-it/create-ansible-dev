@@ -17,7 +17,6 @@
     group: "{{ item[0]['name'] }}"
     mode: "0600"
     force: true
-    backup: true
 
 - name: ensure the ANSIBLE_FORCE_COLOR=1 environment variable exists for the user
   with_nested:
