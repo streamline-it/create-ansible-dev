@@ -51,3 +51,29 @@
   ansible.builtin.assert:
     that: item['stat']['exists']
     fail_msg: "All user profiles must exist."
+
+- name: ensure bash prompt colors are defined
+  ansible.builtin.assert:
+    that: 
+      - create_ansible_dev_prompt_colors is defined
+      - create_ansible_dev_prompt_colors is truthy
+    fail_msg: "Make sure prompt colors list is defined"
+
+- name: ensure the choice to configure the bash prompt is setup properly
+  ansible.builtin.assert:
+    that:
+      - create_ansible_dev_bash_config_prompt is defined
+      - create_ansible_dev_bash_config_prompt == true or create_ansible_dev_bash_config_prompt == false
+    fail_msg: "make sure this variable is setup correctly"
+
+- name: if we're configuring the bash prompt make sure key variables are set
+  when: create_ansible_dev_bash-config_prompt == true
+  ansible.builtin.assert:
+    that: 
+      - create_ansible_dev_prompt_string is defined
+      - create_ansible_dev_prompt_string is truthy
+      - create_ansible_dev_ps_prompt is defined
+      - create_ansible_dev_ps_prompt is truthy
+      - create_ansible_dev_chosen_color is defined
+      - create_ansible_dev_chosen_color is truthy
+    fail_msg: "Make sure all variables related to BASH prompt are defined"

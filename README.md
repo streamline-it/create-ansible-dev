@@ -3,6 +3,9 @@ Role Name
 
 This role creates an Ansible developement environment. It creates environment variable(s) for Ansible.  It also creates developement directory under user's Documents directory.  Lastly it create's a vimrc file catered to Ansible editing under VIM.
 
+This role can also change your bash prompt if you enable the "create_ansible_dev_bash_config_promt" by making it equal to true.  You can choose the color.
+
+
 This role with work on RHEL 7 OS's and up along with FreeBSD hosts versions 13 and up.
 Requirements
 ------------
@@ -13,6 +16,32 @@ Role Variables
 --------------
 
 # defaults file for create-ansible-dev
+
+# the "bash_ps1" attribute will change the bash prompt.
+#
+create_ansible_dev_prompt_colors:
+  - black: 30
+  - red: 31
+  - green: 32
+  - yellowbrown: 33
+  - blue: 34
+  - magenta: 35
+  - cyan: 36
+  - lightgrey: 37
+  - default: 39
+  - darkgrey: 90
+  - white: 97
+
+# This will help choose the color of your prompt in the bash shell, default is green
+# This is the example of the end result "PS1="\e[1;32m\][\u@\h: \w]$\e[0m\]"
+
+create_ansible_dev_chosen_color: "{{ create_ansible_dev_prompt_colors[1]['green'] }}"
+create_ansible_dev_prompt_string: "\\e[1;{{ create_ansible_dev_chosen_color }}m\\][\\u@\\h: \\w]$\\e[0m\\]"
+create_ansible_dev_ps_prompt: "{{ 'PS1=\"' ~ '\\e[1;32m\\][\\u@\\h: \\w]$\\e[0m\\]' ~  '\"' }}"
+
+# if true the bash config prompt
+create_ansible_dev_bash_config_prompt: true
+
 
 create_ansible_dev_users:
   - name:
@@ -78,6 +107,8 @@ create_ansible_dev_additional_pkgs:
   - git-core
   - git-core-doc
 
+create_ansible_dev_bashrc_filename: .bashrc
+
 Dependencies
 ------------
 
@@ -99,10 +130,13 @@ Example below includes all options.  You can control those options through the f
 
   vars:
 
+    create_ansible_dev_chosen_color: "{{ create_ansible_dev_prompt_colors[4]['blue'] }}"
+
     create_ansible_dev_users:
       - name: rich
         shell: /bin/sh
         homedir: /home/rich
+	bash_ps1: "{{ create_ansible-dev_ps_prompt }}"
 
     create_ansible_dev_env_use_misc_keys: true
 

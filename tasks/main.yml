@@ -30,6 +30,10 @@
     backup: true
     state: present
 
+- name: call tasks to setup bash prompt
+  when: create_ansible_dev_bash_config_prompt == true
+  ansible.builtin.include_tasks: setup_bash_prompt.yml
+
 - name: ensure developement directories exist
   with_nested:
     - "{{ create_ansible_dev_users }}"

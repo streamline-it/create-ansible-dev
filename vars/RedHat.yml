@@ -4,3 +4,5 @@ create_ansible_dev_additional_pkgs:
   - git-core
   - git-core-doc
   - vim
+
+create_ansible_dev_bashrc_filename: .bashrc

@@ -1,14 +1,37 @@
 ---
 # defaults file for create-ansible-dev
 
+# the "bash_ps1" attribute will change the bash prompt.
+#
+create_ansible_dev_prompt_colors:
+  - black: 30
+  - red: 31
+  - green: 32
+  - yellowbrown: 33
+  - blue: 34
+  - magenta: 35
+  - cyan: 36
+  - lightgrey: 37
+  - default: 39
+  - darkgrey: 90
+  - white: 97
+
+
+# This will help choose the color of your prompt in the bash shell, default is green
+# This is the example of the end result "PS1="\e[1;32m\][\u@\h: \w]$\e[0m\]"
+
+create_ansible_dev_chosen_color: "{{ create_ansible_dev_prompt_colors[1]['green'] }}"
+create_ansible_dev_prompt_string: "\\e[1;{{ create_ansible_dev_chosen_color }}m\\][\\u@\\h: \\w]$\\e[0m\\]"
+create_ansible_dev_ps_prompt: "{{ 'PS1=\"' ~ '\\e[1;32m\\][\\u@\\h: \\w]$\\e[0m\\]' ~  '\"' }}"
+
+# if true the bash config prompt
+create_ansible_dev_bash_config_prompt: true
+
 create_ansible_dev_users:
   - name:
     shell:
     homedir:
-    wallpaper: 
-    devuser_src_key_path:
-    devuser_priv_key_file:
-    devuser_pub_key_file:
+    bash_ps1: 
 
 # directories to create for ansible developement
 create_ansible_dev_directories:

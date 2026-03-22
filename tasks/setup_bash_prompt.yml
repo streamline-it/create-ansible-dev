@@ -1,0 +1,11 @@
+---
+- name: ensure the bash prompt is setup
+  loop:
+    "{{ create_ansible_dev_users }}"
+  when: 
+    - create_ansible_dev_bash_config_prompt == true
+    - item['shell'] == '/bin/bash'
+  ansible.builtin.lineinfile:
+    path: "/home/{{ item['name'] }}/{{ create_ansible_dev_bashrc_filename }}"
+    line: "{{ create_ansible_dev_ps_prompt }}"
+    state: present
