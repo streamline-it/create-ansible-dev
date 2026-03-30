@@ -45,7 +45,7 @@ create_ansible_dev_bash_config_prompt: true
 
 create_ansible_dev_users:
   - name:
-    shell:
+    os:
     homedir:
     wallpaper: 
     devuser_src_key_path:
@@ -84,12 +84,12 @@ Vars section
 
 # used to create user aliases etc
 create_ansible_dev_filepaths:
-  - shell: bash
-    vim_src: vimrc_bash
+  - os: linux
+    vim_src: vimrc_linux
     vim_dest: ".vimrc"
     env_file: ".bashrc"
-  - shell: bourne
-    vim_src: vimrc_bourne
+  - os: bsd
+    vim_src: vimrc_bsd
     vim_dest: "vimrc"
     env_file: ".profile"
 
@@ -134,9 +134,9 @@ Example below includes all options.  You can control those options through the f
 
     create_ansible_dev_users:
       - name: rich
-        shell: /bin/sh
+        os: linux
         homedir: /home/rich
-	bash_ps1: "{{ create_ansible-dev_ps_prompt }}"
+	bash_ps1: "{{ create_ansible_dev_ps_prompt }}"
 
     create_ansible_dev_env_use_misc_keys: true
 

@@ -1,10 +1,29 @@
 ---
+- name: check to see if bashrc exists
+  register: create_ansible_dev_stats
+  loop:
+    "{{ create_ansible_dev_users }}"
+  ansible.builtin.stat:
+    path: "/home/{{ item['name'] }}/{{ create_ansible_dev_bashrc_filename }}"
+    get_attributes: true
+
+- name: create bashrc if it doesn't exists
+  loop:
+    "{{  create_ansible_dev_stats['results'] | ansible.builtin.zip(create_ansible_dev_users) | list }}"
+  when:
+    - item[0]['stat']['exists'] == false
+  ansible.builtin.copy:
+    content: ""
+    dest: "/home/{{ item[1]['name'] }}/{{ create_ansible_dev_bashrc_filename }}"
+    owner: "{{ item[1]['name'] }}"
+    group: "{{ item[1]['name'] }}"
+  
 - name: ensure the bash prompt is setup
   loop:
     "{{ create_ansible_dev_users }}"
   when: 
     - create_ansible_dev_bash_config_prompt == true
-    - item['shell'] == '/bin/bash'
+    - item['shell'] == 'bash'
   ansible.builtin.lineinfile:
     path: "/home/{{ item['name'] }}/{{ create_ansible_dev_bashrc_filename }}"
     line: "{{ create_ansible_dev_ps_prompt }}"

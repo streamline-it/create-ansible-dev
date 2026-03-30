@@ -2,11 +2,11 @@
 # vars file for create-ansible-dev
 
 create_ansible_dev_filepaths:
-  - shell: bash
-    vim_src: vimrc_bash
+  - os: linux
+    vim_src: vimrc_linux
     vim_dest: ".vimrc"
     env_file: ".bashrc"
-  - shell: bourne
-    vim_src: vimrc_bourne
+  - os: bsd
+    vim_src: vimrc_bsd
     vim_dest: ".vimrc"
     env_file: ".profile"
