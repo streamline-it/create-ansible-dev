@@ -67,7 +67,7 @@
     fail_msg: "make sure this variable is setup correctly"
 
 - name: if we're configuring the bash prompt make sure key variables are set
-  when: create_ansible_dev_bash-config_prompt == true
+  when: create_ansible_dev_bash_config_prompt == true
   ansible.builtin.assert:
     that: 
       - create_ansible_dev_prompt_string is defined
