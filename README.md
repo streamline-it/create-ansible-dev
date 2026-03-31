@@ -135,6 +135,7 @@ Example below includes all options.  You can control those options through the f
     create_ansible_dev_users:
       - name: rich
         os: linux
+        shell: bash
         homedir: /home/rich
 	bash_ps1: "{{ create_ansible_dev_ps_prompt }}"
 
