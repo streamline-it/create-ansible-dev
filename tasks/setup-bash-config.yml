@@ -1,0 +1,24 @@
+---
+
+- name: create the environment file if it doesn't already exist
+  loop:
+    "{{ create_ansible_dev_bashrc_stat['results'] | ansible.builtin.zip(create_ansible_dev_users,create_ansible_dev_filepaths) | list }}"
+  when:
+    - item[0]['stat']['exists'] == false
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ item[1]['homedir' }}/{{ item[2]['env_file'] }}"
+    owner: "{{ item[1]['name'] }}"
+    group: "{{ item[1]['name'] }}"
+  
+- name: ensure the ANSIBLE_FORCE_COLOR=1 environment variable exists for the user
+  with_nested:
+    - "{{ create_ansible_dev_users }}"
+    - "{{ create_ansible_dev_filepaths }}"
+    - "{{ create_ansible_dev_env_vars_line }}"
+  when: item[0]['os'] == item[1]['os']
+  ansible.builtin.lineinfile:
+    path: "{{ item[0]['homedir'] }}/{{ item[1]['env_file'] }}"
+    line: "{{ item[2] }}"
+    backup: true
+    state: present

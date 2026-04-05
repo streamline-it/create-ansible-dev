@@ -20,17 +20,16 @@
     mode: "0600"
     force: true
 
-- name: ensure the ANSIBLE_FORCE_COLOR=1 environment variable exists for the user
-  with_nested:
-    - "{{ create_ansible_dev_users }}"
-    - "{{ create_ansible_dev_filepaths }}"
-    - "{{ create_ansible_dev_env_vars_line }}"
-  when: item[0]['os'] == item[1]['os']
-  ansible.builtin.lineinfile:
+- name: check to see if .bashrc exists
+  register: create_ansible_dev_bashrc_stat
+  loop:
+    "{{ create_ansible_dev_users | ansible.builtin.zip(create_ansible_dev_filepaths) | list }}"
+  ansible.builtin.stat:
     path: "{{ item[0]['homedir'] }}/{{ item[1]['env_file'] }}"
-    line: "{{ item[2] }}"
-    backup: true
-    state: present
+    get_attributes: true
+
+- name: call tasks to setup bash environment file (.bashrc)
+  ansible.builtin.include_tasks: setup-bash-config.yml
 
 - name: call tasks to setup bash prompt
   when: create_ansible_dev_bash_config_prompt == true

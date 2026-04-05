@@ -1,16 +1,31 @@
 ---
+- name: check to see if the ssh config exists
+  register: create_ansible_dev_env_check_config_exists
+  debugger: on_failed
+  when:
+    - create_ansible_dev_env_ssh_create_user_config == true
+    - create_ansible_dev_env_ssh_user_config is defined
+    - create_ansible_dev_env_ssh_user_config[0]['username'] is truthy 
+  changed_when: false
+  loop:
+    "{{ create_ansible_dev_env_ssh_user_config }}"
+  ansible.builtin.stat:
+    path: "{{ item['config_filepath'] }}"
+    get_attributes: true
+
 - name: ensure the config file exists 
   changed_when: false
+  loop:
+    "{{ create_ansible_dev_env_check_config_exists['results'] | ansible.builtin.zip(create_ansible_dev_env_ssh_user_config) | list }}"
   when:
     - create_ansible_dev_env_ssh_user_config is defined
     - create_ansible_dev_env_ssh_user_config[0]['username'] is truthy 
-  loop:
-    "{{ create_ansible_dev_env_ssh_user_config }}"
+    - item[0]['stat']['exists'] == false
   ansible.builtin.copy:
     content: ""
-    dest: "{{ item['config_filepath'] }}"
-    owner: "{{ item['username'] }}"
-    group: "{{ item['username'] }}"
+    dest: "{{ item[1]['config_filepath'] }}"
+    owner: "{{ item[1]['username'] }}"
+    group: "{{ item[1]['username'] }}"
     mode: "0600"
 
 - name: ensure the contents are created for the user's ssh config file
