@@ -1,4 +1,11 @@
 ---
+- name: check to see if .bashrc exists
+  register: create_ansible_dev_bashrc_stat
+  loop:
+    "{{ create_ansible_dev_users | ansible.builtin.zip(create_ansible_dev_filepaths) | list }}"
+  ansible.builtin.stat:
+    path: "{{ item[0]['homedir'] }}/{{ item[1]['env_file'] }}"
+    get_attributes: true
 
 - name: create the environment file if it doesn't already exist
   loop:
@@ -7,7 +14,7 @@
     - item[0]['stat']['exists'] == false
   ansible.builtin.copy:
     content: ""
-    dest: "{{ item[1]['homedir' }}/{{ item[2]['env_file'] }}"
+    dest: "{{ item[1]['homedir'] }}/{{ item[2]['env_file'] }}"
     owner: "{{ item[1]['name'] }}"
     group: "{{ item[1]['name'] }}"
   
