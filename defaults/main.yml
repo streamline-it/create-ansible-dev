@@ -21,7 +21,7 @@ create_ansible_dev_prompt_colors:
 # This is the example of the end result "PS1="\e[1;32m\][\u@\h: \w]$\e[0m\]"
 
 create_ansible_dev_chosen_color: "{{ create_ansible_dev_prompt_colors[1]['green'] }}"
-create_ansible_dev_prompt_string: "\\[\\e[1;{{ create_ansible_dev_chosen_color }}m\\]⌠[\\u@\\h: \\w]\\n└\\[\\e[1;{{ create_ansible_dev_chosen_color }}m\\]─$ \\[\\e[0m\\]"
+create_ansible_dev_prompt_string: "\\[\\e[1;{{ create_ansible_dev_chosen_color }}m\\]⌠[\\u@\\h: \\w]\\n└\\[\\e[1;{{ create_ansible_dev_chosen_color }}m\\]─>$ \\[\\e[0m\\]"
 create_ansible_dev_ps_prompt: "{{ 'PS1=\"' ~ create_ansible_dev_prompt_string ~  '\"' }}"
 
 # if true the bash config prompt
